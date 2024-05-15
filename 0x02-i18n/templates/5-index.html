@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="{{ request.environ.get('FLASK_BABEL_LOCALE') }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ _('Welcome') }}</title>
+</head>
+<body>
+    <p>{{ welcome_message }}</p>
+</body>
+</html>
