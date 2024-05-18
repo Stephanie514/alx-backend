@@ -22,7 +22,6 @@ class Server:
                 reader = csv.reader(f)
                 dataset = [row for row in reader]
             self.__dataset = dataset[1:]
-
         return self.__dataset
 
     def indexed_dataset(self) -> Dict[int, List]:
@@ -34,9 +33,10 @@ class Server:
             }
         return self.__indexed_dataset
 
-    def get_hyper_index(self, index: int = None,
-                        page_size: int = 10) -> Dict[str, Any]:
-        """Getting a page from the dataset with additional pagination info
+    def get_hyper_index(
+        self, index: int = None, page_size: int = 10
+    ) -> Dict[str, Any]:
+        """Get a page from the dataset with additional pagination info
            that is resilient to deletions.
 
         Args:
@@ -46,7 +46,8 @@ class Server:
         Returns:
             Dict[str, Any]: A dictionary containing pagination details.
         """
-        assert index is not None and 0 <= index < len(self.indexed_dataset())
+        assert index is not None, "Index cannot be None."
+        assert 0 <= index < len(self.indexed_dataset()), "Index out of range."
 
         indexed_dataset = self.indexed_dataset()
         data = []
