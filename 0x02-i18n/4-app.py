@@ -1,39 +1,56 @@
 #!/usr/bin/env python3
 """
-Flask Application for Internationalization (i18n)
+    Flask App
 """
 
-from flask import Flask, render_template, request
-from flask_babel import Babel, _
+from flask import Flask
+from flask_babel import Babel
+from flask import render_template
+from flask import request
+
+
+class Config:
+    """
+    Configuration class for the Flask app.
+
+    Attributes:
+        LANGUAGES (list): List of supported languages.
+        BABEL_DEFAULT_LOCALE (str): Default locale (language) for the app.
+        BABEL_DEFAULT_TIMEZONE (str): Default timezone for the app.
+    """
+
+    LANGUAGES = ["en", "fr"]
+    BABEL_DEFAULT_LOCALE = "en"
+    BABEL_DEFAULT_TIMEZONE = "UTC"
 
 
 app = Flask(__name__)
 babel = Babel(app)
 
-AVAILABLE_LOCALES = ["en", "fr"]
+app.config.from_object(Config)
 
 
 @babel.localeselector
 def get_locale():
     """
-    Select the locale for the request.
-    If the 'locale' parameter is present and valid, use it.
-    Otherwise, fall back to the default behavior.
+    the get_locale function
     """
-    requested_locale = request.args.get('locale')
-    if requested_locale and requested_locale in AVAILABLE_LOCALES:
-        return requested_locale
-    return request.accept_languages.best_match(AVAILABLE_LOCALES)
+
+    locale = request.args.get('locale')
+
+    if locale in app.config['LANGUAGES']:
+        return locale
+
+    return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
 @app.route('/')
 def index():
     """
-    Render the index page with translated titles and headers.
+        Index
     """
-    return render_template('4-index.html',
-                           title=_('home_title'), header=_('home_header'))
+    return render_template('3-index.html')
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
