@@ -33,16 +33,22 @@ msgstr ""
 msgid "home_header"
 msgstr ""
 
-#: 5-app.py:43
-#, python-format
-msgid "You are logged in as %(username)s."
-msgstr ""
+#: templates/5-index.html:11
+msgid "logged_in_as"
+msgstr "You are logged in as %(username)s."
 
-#: 5-app.py:45
-msgid "You are not logged in."
-msgstr ""
+#: templates/5-index.html:13
+msgid "not_logged_in"
+msgstr "You are not logged in."
 
-#: templates/5-index.html:6
-msgid "Welcome"
-msgstr ""
+#: templates/index.html:9
+msgid "logged_in_as"
+msgstr "You are logged in as %(username)s."
 
+#: templates/index.html:9
+msgid "not_logged_in"
+msgstr "You are not logged in."
+
+#: templates/index.html:10
+msgid "current_time_is"
+msgstr "The current time is %(current_time)s."
