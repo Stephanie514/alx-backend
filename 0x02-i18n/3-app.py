@@ -1,29 +1,44 @@
 #!/usr/bin/env python3
 """
-Using the _ or gettext function to parametrize templates.
-Using the message IDs home_title and home_header .
+    Flask App
 """
-from flask import Flask, render_template
-from flask_babel import Babel, _
+
+from flask import Flask
+from flask_babel import Babel
+from flask import render_template
+from flask import request
+
+
+class Config:
+    """
+        Config class
+    """
+    LANGUAGES = ["en", "fr"]
+    BABEL_DEFAULT_LOCALE = "en"
+    BABEL_DEFAULT_TIMEZONE = "UTC"
 
 
 app = Flask(__name__)
 babel = Babel(app)
 
+app.config.from_object(Config)
 
-@app.route('/')
-def index():
-    return render_template('3-index.html',
-                           title=_('home_title'), header=_('home_header'))
+
+@babel.localeselector
+def get_locale():
+    """
+        the get_locale function
+    """
+    return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
 @app.route('/')
 def index():
     """
-      index
+        Index
     """
     return render_template('3-index.html')
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
